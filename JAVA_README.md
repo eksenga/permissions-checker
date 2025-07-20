@@ -30,20 +30,23 @@ src/
 ## Requirements
 
 - Java 11 or higher
-- Maven 3.6 or higher
+- Gradle 8.5 or higher (or use the included Gradle wrapper)
 - Appropriate system permissions to modify folder permissions
 
 ## Building the Application
 
 ```bash
 # Compile the application
-mvn compile
+./gradlew build
 
-# Run tests
-mvn test
+# Run tests only
+./gradlew test
 
 # Create executable JAR
-mvn package
+./gradlew jar
+
+# Create fat JAR with all dependencies
+./gradlew fatJar
 ```
 
 ## Running the Application
@@ -51,24 +54,25 @@ mvn package
 ### Interactive Mode
 
 ```bash
-# Using Maven
-mvn exec:java -Dexec.mainClass="com.canyonetcie.PermissionsChecker"
+# Using Gradle
+./gradlew runApp
 
 # Or using the JAR
-java -jar target/permissions-checker-1.0.0.jar
+java -jar build/libs/permissions-checker-1.0.0.jar
 ```
 
 ### Single Command Mode
 
 ```bash
-# Enable write permissions
-java -jar target/permissions-checker-1.0.0.jar enable
+# Using Gradle tasks
+./gradlew runWithCommand -Pcommand=enable
+./gradlew runWithCommand -Pcommand=disable
+./gradlew runWithCommand -Pcommand=status
 
-# Disable write permissions
-java -jar target/permissions-checker-1.0.0.jar disable
-
-# Show status
-java -jar target/permissions-checker-1.0.0.jar status
+# Or using the JAR
+java -jar build/libs/permissions-checker-1.0.0.jar enable
+java -jar build/libs/permissions-checker-1.0.0.jar disable
+java -jar build/libs/permissions-checker-1.0.0.jar status
 ```
 
 ## Available Commands
@@ -158,7 +162,7 @@ um.addAdminUser("newadmin");
 ### Running Tests
 
 ```bash
-mvn test
+./gradlew test
 ```
 
 ## Troubleshooting
